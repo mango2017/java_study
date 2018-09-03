@@ -49,11 +49,11 @@ public class MvcTest {
 		
 		PageInfo pageInfo  = (PageInfo) request.getAttribute("info");
 //		
-		System.out.println(pageInfo);
-		System.out.println("当前页码"+pageInfo.getPageNum());
-		System.out.println("总页码"+pageInfo.getPages());
-		System.out.println("总记录数"+pageInfo.getTotal());
-		System.out.println("在页面需要连续显示的页码");
+//		System.out.println(pageInfo);
+//		System.out.println("当前页码"+pageInfo.getPageNum());
+//		System.out.println("总页码"+pageInfo.getPages());
+//		System.out.println("总记录数"+pageInfo.getTotal());
+//		System.out.println("在页面需要连续显示的页码");
 		int[] nums = pageInfo.getNavigatepageNums();
 		for(int i:nums) {
 			System.out.println(" "+i);
