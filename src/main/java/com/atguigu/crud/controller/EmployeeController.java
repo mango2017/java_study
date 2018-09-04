@@ -9,8 +9,10 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.atguigu.crud.bean.Employee;
+import com.atguigu.crud.bean.Msg;
 import com.atguigu.crud.service.EmployeeService;
 import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
@@ -21,7 +23,7 @@ public class EmployeeController {
 	EmployeeService employeeService;
 	
 	
-	@RequestMapping("/emps")
+//	@RequestMapping("/emps")
 	public String getEmps(@RequestParam(value="pn",defaultValue="1")Integer pn,Model model) {
 //		System.out.println(1);
 		//这不是一个分页查询
@@ -37,8 +39,27 @@ public class EmployeeController {
 //		System.out.println(page);
 		model.addAttribute("info", page);
 		return "list";
-		
 	}
+	
+	
+	//以json的形式返回对象
+	@RequestMapping("/emps")
+	@ResponseBody
+	public Msg getEmpsWithJson(@RequestParam(value="pn",defaultValue="1")Integer pn) {
+		PageHelper.startPage(pn,6);
+		//startPage后面紧跟的这个查询就是一个分页查询
+		List<Employee> emps=employeeService.getAll();
+		System.out.println(emps.toString());
+		//使用pageInfo包装查询后的结果，只需要将pageInfo交给页面就行了
+		//封装了详细的分页信息，包括有我们查询出来的数据，传入连续显示的页数
+		PageInfo page = new PageInfo(emps,5);
+		return Msg.success().add("pageInfo",page);
+	}
+	
+	
+	
+	
+	
 	
 	@RequestMapping("/test")
 	public void getTest() {
