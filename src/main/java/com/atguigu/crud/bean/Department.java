@@ -4,7 +4,7 @@ public class Department {
     private Integer deptId;
 
     private String deptName;
-    private int age;
+    private int ages;
     
     
     
