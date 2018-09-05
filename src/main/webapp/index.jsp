@@ -174,6 +174,11 @@
 			//去首页
 			to_page(1);
 			$("#emp_add_modal_btn").click(function() {
+				//模态框弹出之前，清空表单数据（表单重置）
+				//$("#empAddModal form")[0].reset();
+				reset_form("#empAddModal form");
+				
+				
 				//发送ajax请求，查出部门信息，显示在下拉列表中
 				getDepts();
 				$("#empAddModal").modal({
@@ -182,6 +187,14 @@
 			});
 
 		});
+		
+		//表单重置方法
+		function reset_form(ele){
+			$(ele)[0].reset();//重置表单内容
+			//清空表单样式
+			$(ele).find("*").removeClass("has-error has-success");
+			$(ele).find(".help-block").text("");
+		}
 		
 		//查出所有的部门信息，并显示在下拉列表中
 		function getDepts(){
@@ -319,6 +332,28 @@
 			});
 		}
 		
+		//校验用户名是否可用
+		$("#empName_add_input").change(function(){
+			//发送ajax请求校验用户名是否可用
+			var empName = this.value;
+			$.ajax({
+				url:"${APP_PATH}/checkuser",
+				data:"empName="+empName,
+				type:"POST",
+				success:function(result){
+					console.log(result);
+					if(result.code==100){//成功
+						show_validate_msg("#empName_add_input","success","用户名可用");
+						$("#emp_save_btn").attr("ajax-va","success");
+					}else{ //失败
+						show_validate_msg("#empName_add_input","error",result.extend.va_msg);
+						$("#emp_save_btn").attr("ajax-va","error");
+					}
+				}
+			});
+		});
+		
+		
 		//点击保存，保存员工
 		$("#emp_save_btn").click(function(){
 			//1.模态框中填写的表单数据提交给服务器进行保存
@@ -326,6 +361,11 @@
 			if(!validate_add_form()){
 				return false;
 			}
+			//判断之前的ajax用户名校验是否成功，如果成功
+			if($(this).attr("ajax-va")=="error"){
+				return false;
+			}
+			
 			//2.发送ajax请求保存员工
 			 $.ajax({
 				url : "${APP_PATH}/emp",
@@ -369,9 +409,10 @@
 				/* $("#email_add_input").parent().addClass("has-success");
 				$("#email_add_input").next().text(""); */
 			}
-			return false;
+			return true;
 		}
 		
+		//
 		function show_validate_msg(ele,status,msg){
 			//清除当前元素的校验状态
 			$(ele).parent().removeClass("has-success has-error");
