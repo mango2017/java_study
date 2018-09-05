@@ -52,6 +52,7 @@
 								<div class="col-sm-10">
 									<input type="text" name="empName" class="form-control"
 										id="empName_add_input" placeholder="">
+										<span class="help-block"></span>
 								</div>
 							</div>
 							<div class="form-group">
@@ -59,6 +60,7 @@
 								<div class="col-sm-10">
 									<input type="text" name="email" class="form-control"
 										id="email_add_input" placeholder="">
+										<span class="help-block"></span>
 								</div>
 							</div>
 							<div class="form-group">
@@ -317,9 +319,13 @@
 			});
 		}
 		
-		
+		//点击保存，保存员工
 		$("#emp_save_btn").click(function(){
 			//1.模态框中填写的表单数据提交给服务器进行保存
+			//先对要提交给服务器的数据进行验证
+			if(!validate_add_form()){
+				return false;
+			}
 			//2.发送ajax请求保存员工
 			 $.ajax({
 				url : "${APP_PATH}/emp",
@@ -335,9 +341,51 @@
 					
 				}
 			}); 
-			
-			
 		});
+		
+		//校验数据方法
+		function validate_add_form(){
+			//1.拿到要校验的数据，使用正则表达式
+			var empName = $("#empName_add_input").val();
+			var regName = /(^[a-zA-Z0-9_-]{6,16}$)|(^[\u2E80-\u9FFF]{2,5})/;
+			if(!regName.test(empName)){
+				show_validate_msg("#empName_add_input","error","用户名可以是2-5位中文或6-16位英文和数字的组合");
+				return false;
+			}else{
+				show_validate_msg("#empName_add_input","success","");
+				/* $("#empName_add_input").parent().addClass("has-success");
+				$("#empName_add_input").next().text(""); */
+			}
+			//校验邮箱
+			var email = $("#email_add_input").val();
+			var regEmail = /^\w+([-+.]\w+)*@\w+([-.]\w+)*\.\w+([-.]\w+)*$/;
+			if(!regEmail.test(email)){
+				show_validate_msg("#email_add_input","error","邮箱格式不正确");
+				/* $("#email_add_input").parent().addClass("has-error");
+				$("#email_add_input").next().text("邮箱格式不正确"); */
+				return false;
+			}else{
+				show_validate_msg("#email_add_input","success","");
+				/* $("#email_add_input").parent().addClass("has-success");
+				$("#email_add_input").next().text(""); */
+			}
+			return false;
+		}
+		
+		function show_validate_msg(ele,status,msg){
+			//清除当前元素的校验状态
+			$(ele).parent().removeClass("has-success has-error");
+			$(ele).next("span").text("");
+			if("success"==status){
+				$(ele).parent().addClass("has-success");
+				$(ele).next("span").text(msg);
+			}else if("error"==status){
+				$(ele).parent().addClass("has-error");
+				$(ele).next("span").text(msg);
+				
+			}
+		}
+		
 	</script>
 
 </body>
