@@ -21,7 +21,7 @@ import com.atguigu.crud.dao.EmployeeMapper;
 public class MapperTest  {
 	/**
 	 * 
-	 * 测试
+	 * 娴嬭瘯
 	 * @param args
 	 */
 	@Autowired
@@ -35,22 +35,22 @@ public class MapperTest  {
 	
 	@Test
 	public void testCRUD() {
-//		System.out.println(1);
-		//1.创建springioc容器
+		System.out.println(1);
+		//1.鍒涘缓springioc瀹瑰櫒
 //		ApplicationContext ioc = new ClassPathXmlApplicationContext("applicationContext.xml");
-//		//从容器中获取mapper
+//		//浠庡鍣ㄤ腑鑾峰彇mapper
 //		DepartmentMapper bean = ioc.getBean(DepartmentMapper.class);
 //		System.out.println(departmentMapper);
-		departmentMapper.insertSelective(new Department(null, "销售部s"));
-		departmentMapper.insertSelective(new Department(null, "运营部s"));
+		departmentMapper.insertSelective(new Department(null, "閿�鍞儴s"));
+		departmentMapper.insertSelective(new Department(null, "杩愯惀閮╯"));
 //		
-		//批量操作
+		//鎵归噺鎿嶄綔
 //		EmployeeMapper mapper = sqlSession.getMapper(EmployeeMapper.class);
 //		for(int i=0;i<20;i++) {
 //			String uid = UUID.randomUUID().toString().substring(0, 5) + i;
 //			mapper.insertSelective(new Employee(null,uid,"M","123@qq.com",1));
 //		}
-//		System.out.println("批量完成操作");
+//		System.out.println("鎵归噺瀹屾垚鎿嶄綔");
 		
 	}
 

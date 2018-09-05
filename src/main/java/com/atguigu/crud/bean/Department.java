@@ -13,7 +13,7 @@ public class Department {
     }
 
     
-   //生成有参构造器，一定要生成无参构造器
+   //鐢熸垚鏈夊弬鏋勯�犲櫒锛屼竴瀹氳鐢熸垚鏃犲弬鏋勯�犲櫒
     public Department() {
 		super();
 	}

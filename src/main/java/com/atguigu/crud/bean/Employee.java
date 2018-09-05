@@ -11,7 +11,7 @@ public class Employee {
 
     private Integer dId;
     
-    //希望查询员工的同时，部门信息也是查询好的
+   //甯屾湜鏌ヨ鍛樺伐鐨勫悓鏃讹紝閮ㄩ棬淇℃伅涔熸槸鏌ヨ濂界殑
     private Department department;
     
     

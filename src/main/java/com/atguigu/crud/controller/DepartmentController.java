@@ -17,10 +17,7 @@ public class DepartmentController {
 	@Autowired
 	private DepartmentService departmentService;
 	
-	/**
-	 * 
-	 * 返回所有的部门信息
-	 */
+	
 	@ResponseBody
 	@RequestMapping("/depts")
 	public Msg getDepts() {

@@ -20,50 +20,55 @@ import org.springframework.web.context.WebApplicationContext;
 
 import com.atguigu.crud.bean.Employee;
 import com.github.pagehelper.PageInfo;
+
 /**
  * 
- * Ê¹ÓÃspring²âÊÔÄ£¿éÌá¹©µÄ²âÊÔÇëÇó¹¦ÄÜ£¬²âÊÔcurdÇëÇóµÄÕıÈ·ĞÔ
+ * ä½¿ç”¨springæµ‹è¯•æ¨¡å—æä¾›çš„æµ‹è¯•è¯·æ±‚åŠŸèƒ½ï¼Œæµ‹è¯•curdè¯·æ±‚çš„æ­£ç¡®æ€§
+ * 
  * @author Administrator
  *
  */
 @RunWith(SpringJUnit4ClassRunner.class)
 @WebAppConfiguration
-@ContextConfiguration(locations= {"classpath:applicationContext.xml","file:src/main/webapp/WEB-INF/springDispatcherServlet-servlet.xml"})
+@ContextConfiguration(locations = { "classpath:applicationContext.xml",
+		"file:src/main/webapp/WEB-INF/springDispatcherServlet-servlet.xml" })
 public class MvcTest {
-	//´«ÈëSpringmvcµÄioc
+	// ä¼ å…¥Springmvcçš„ioc
 	@Autowired
 	WebApplicationContext context;
-	//ĞéÄâmvcÇëÇó£¬»ñÈ¡µ½´¦Àí½á¹û
+	// è™šæ‹Ÿmvcè¯·æ±‚ï¼Œè·å–åˆ°å¤„ç†ç»“æœ
 	MockMvc mockMvc;
+
 	@Before
 	public void initMokcMvc() {
 		mockMvc = MockMvcBuilders.webAppContextSetup(context).build();
 	}
+
 	@Test
 	public void testPage() throws Exception {
-		//Ä£ÄâÇëÇóÄÃµ½·µ»ØÖµ
+		// æ¨¡æ‹Ÿè¯·æ±‚æ‹¿åˆ°è¿”å›å€¼
 		MvcResult result = mockMvc.perform(MockMvcRequestBuilders.get("/emps").param("pn", "1")).andReturn();
-		
-		//ÇëÇó³É¹¦ÒÔºó£¬ÇëÇóÓòÖĞ»áÓĞpageInfoÎÒÃÇ¿ÉÒÔÈ¡³öpageInfo½øĞĞÑéÖ¤
+
+		// è¯·æ±‚æˆåŠŸä»¥åï¼Œè¯·æ±‚åŸŸä¸­ä¼šæœ‰pageInfoæˆ‘ä»¬å¯ä»¥å–å‡ºpageInfoè¿›è¡ŒéªŒè¯
 		MockHttpServletRequest request = result.getRequest();
-		
-		PageInfo pageInfo  = (PageInfo) request.getAttribute("info");
-//		
-//		System.out.println(pageInfo);
-//		System.out.println("µ±Ç°Ò³Âë"+pageInfo.getPageNum());
-//		System.out.println("×ÜÒ³Âë"+pageInfo.getPages());
-//		System.out.println("×Ü¼ÇÂ¼Êı"+pageInfo.getTotal());
-//		System.out.println("ÔÚÒ³ÃæĞèÒªÁ¬ĞøÏÔÊ¾µÄÒ³Âë");
+
+		PageInfo pageInfo = (PageInfo) request.getAttribute("info");
+//				
+//				System.out.println(pageInfo);
+//				System.out.println("å½“å‰é¡µç "+pageInfo.getPageNum());
+//				System.out.println("æ€»é¡µç "+pageInfo.getPages());
+//				System.out.println("æ€»è®°å½•æ•°"+pageInfo.getTotal());
+//				System.out.println("åœ¨é¡µé¢éœ€è¦è¿ç»­æ˜¾ç¤ºçš„é¡µç ");
 		int[] nums = pageInfo.getNavigatepageNums();
-		for(int i:nums) {
-			System.out.println(" "+i);
+		for (int i : nums) {
+			System.out.println(" " + i);
 		}
-		//»ñÈ¡Ô±¹¤Êı¾İ
-		List<Employee> list  = pageInfo.getList();
-		for(Employee employee:list) {
-			System.out.println("ID:"+employee.getEmpId()+"===>NAME:"+employee.getEmpName());
+		// è·å–å‘˜å·¥æ•°æ®
+		List<Employee> list = pageInfo.getList();
+		for (Employee employee : list) {
+			System.out.println("ID:" + employee.getEmpId() + "===>NAME:" + employee.getEmpName());
 		}
-		
+
 	}
-	
+
 }

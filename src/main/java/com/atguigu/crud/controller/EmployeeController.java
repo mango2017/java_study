@@ -25,7 +25,7 @@ public class EmployeeController {
 	
 	
 	
-	//±£´æÔ±¹¤ĞÅÏ¢
+	//ä¿å­˜å‘˜å·¥ä¿¡æ¯
 	@RequestMapping(value="/emp",method=RequestMethod.POST)
 	@ResponseBody
 	public Msg saveEmp(Employee employee) {
@@ -37,15 +37,15 @@ public class EmployeeController {
 //	@RequestMapping("/emps")
 	public String getEmps(@RequestParam(value="pn",defaultValue="1")Integer pn,Model model) {
 //		System.out.println(1);
-		//Õâ²»ÊÇÒ»¸ö·ÖÒ³²éÑ¯
-		//ÒıÈëPageHelper·ÖÒ³²å¼ş
-		//ÔÚ²éÑ¯Ö®Ç°Ö»ĞèÒªµ÷ÓÃ£¬´«ÈëÒ³Âë£¬ÒÔ¼°Ã¿Ò³µÄ´óĞ¡
+		//è¿™ä¸æ˜¯ä¸€ä¸ªåˆ†é¡µæŸ¥è¯¢
+		//å¼•å…¥PageHelperåˆ†é¡µæ’ä»¶
+		//åœ¨æŸ¥è¯¢ä¹‹å‰åªéœ€è¦è°ƒç”¨ï¼Œä¼ å…¥é¡µç ï¼Œä»¥åŠæ¯é¡µçš„å¤§å°
 		PageHelper.startPage(pn,5);
-		//startPageºóÃæ½ô¸úµÄÕâ¸ö²éÑ¯¾ÍÊÇÒ»¸ö·ÖÒ³²éÑ¯
+		//startPageåé¢ç´§è·Ÿçš„è¿™ä¸ªæŸ¥è¯¢å°±æ˜¯ä¸€ä¸ªåˆ†é¡µæŸ¥è¯¢
 		List<Employee> emps=employeeService.getAll();
 		System.out.println(emps.toString());
-		//Ê¹ÓÃpageInfo°ü×°²éÑ¯ºóµÄ½á¹û£¬Ö»ĞèÒª½«pageInfo½»¸øÒ³Ãæ¾ÍĞĞÁË
-		//·â×°ÁËÏêÏ¸µÄ·ÖÒ³ĞÅÏ¢£¬°üÀ¨ÓĞÎÒÃÇ²éÑ¯³öÀ´µÄÊı¾İ£¬´«ÈëÁ¬ĞøÏÔÊ¾µÄÒ³Êı
+		//ä½¿ç”¨pageInfoåŒ…è£…æŸ¥è¯¢åçš„ç»“æœï¼Œåªéœ€è¦å°†pageInfoäº¤ç»™é¡µé¢å°±è¡Œäº†
+		//å°è£…äº†è¯¦ç»†çš„åˆ†é¡µä¿¡æ¯ï¼ŒåŒ…æ‹¬æœ‰æˆ‘ä»¬æŸ¥è¯¢å‡ºæ¥çš„æ•°æ®ï¼Œä¼ å…¥è¿ç»­æ˜¾ç¤ºçš„é¡µæ•°
 		PageInfo page = new PageInfo(emps,5);
 //		System.out.println(page);
 		model.addAttribute("info", page);
@@ -53,16 +53,16 @@ public class EmployeeController {
 	}
 	
 	
-	//ÒÔjsonµÄĞÎÊ½·µ»Ø¶ÔÏó
+	//ä»¥jsonçš„å½¢å¼è¿”å›å¯¹è±¡
 	@RequestMapping("/emps")
 	@ResponseBody
 	public Msg getEmpsWithJson(@RequestParam(value="pn",defaultValue="1")Integer pn) {
 		PageHelper.startPage(pn,6);
-		//startPageºóÃæ½ô¸úµÄÕâ¸ö²éÑ¯¾ÍÊÇÒ»¸ö·ÖÒ³²éÑ¯
+		//startPageåé¢ç´§è·Ÿçš„è¿™ä¸ªæŸ¥è¯¢å°±æ˜¯ä¸€ä¸ªåˆ†é¡µæŸ¥è¯¢
 		List<Employee> emps=employeeService.getAll();
 		System.out.println(emps.toString());
-		//Ê¹ÓÃpageInfo°ü×°²éÑ¯ºóµÄ½á¹û£¬Ö»ĞèÒª½«pageInfo½»¸øÒ³Ãæ¾ÍĞĞÁË
-		//·â×°ÁËÏêÏ¸µÄ·ÖÒ³ĞÅÏ¢£¬°üÀ¨ÓĞÎÒÃÇ²éÑ¯³öÀ´µÄÊı¾İ£¬´«ÈëÁ¬ĞøÏÔÊ¾µÄÒ³Êı
+		//ä½¿ç”¨pageInfoåŒ…è£…æŸ¥è¯¢åçš„ç»“æœï¼Œåªéœ€è¦å°†pageInfoäº¤ç»™é¡µé¢å°±è¡Œäº†
+		//å°è£…äº†è¯¦ç»†çš„åˆ†é¡µä¿¡æ¯ï¼ŒåŒ…æ‹¬æœ‰æˆ‘ä»¬æŸ¥è¯¢å‡ºæ¥çš„æ•°æ®ï¼Œä¼ å…¥è¿ç»­æ˜¾ç¤ºçš„é¡µæ•°
 		PageInfo page = new PageInfo(emps,5);
 		return Msg.success().add("pageInfo",page);
 	}

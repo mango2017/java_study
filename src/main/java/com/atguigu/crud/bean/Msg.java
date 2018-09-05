@@ -4,18 +4,18 @@ import java.util.HashMap;
 import java.util.Map;
 
 public class Msg {
-	//状态码 100-成功  200-失败
+	//鐘舵�佺爜 100-鎴愬姛  200-澶辫触
 	private int code;
-	//提示信息
+	//鎻愮ず淇℃伅
 	private String msg;
 	
-	//用户要返回给浏览器的数据
+	//鐢ㄦ埛瑕佽繑鍥炵粰娴忚鍣ㄧ殑鏁版嵁
 	private Map<String,Object> extend = new HashMap<String, Object>();
 	
 	public static Msg success() {
 		Msg result = new Msg();
 		result.setCode(100);
-		result.setMsg("处理成功!");
+		result.setMsg("澶勭悊鎴愬姛!");
 		return result;
 	}
 	
@@ -23,7 +23,7 @@ public class Msg {
 	public static Msg fail() {
 		Msg result = new Msg();
 		result.setCode(200);
-		result.setMsg("处理失败");
+		result.setMsg("澶勭悊澶辫触");
 		return result;
 	}
 	
