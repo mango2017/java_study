@@ -127,7 +127,7 @@
 								<label class="col-sm-2 control-label">gender</label>
 								<div class="col-sm-10">
 									<label class="radio-inline"> <input type="radio"
-										checked="checked" name="gender" id="gender_update_input"
+										 name="gender" id="gender_update_input"
 										value="M"> 男
 									</label> <label class="radio-inline"> <input type="radio"
 										name="gender" id="gender_update_input" value="F"> 女
@@ -229,7 +229,7 @@
 	</div>
 
 	<script>
-		var totalRecord;
+		var totalRecord,currentPage;
 		$(function() {
 			//去首页
 			to_page(1);
@@ -311,6 +311,7 @@
 							+ result.extend.pageInfo.pages + "页，总"
 							+ result.extend.pageInfo.total + "条记录");
 			totalRecord = result.extend.pageInfo.total;
+			currentPage = result.extend.pageInfo.pageNum;
 
 		}
 
@@ -558,10 +559,14 @@
 			}
 			$.ajax({
 				url:"${APP_PATH}/empsave/"+$(this).attr("edit-id"),
-				type:"POST",
-				data:$("#empUpdateModal form").serialize()+"&_method=PUT",
+				type:"PUT",
+				data:$("#empUpdateModal form").serialize(),
 				success:function(result){
-					alert(result.msg);
+					//alert(result.msg);
+					//1.关闭模态框
+					$("#empUpdateModal").modal("hide");
+					//2.回到本页面
+					to_page(currentPage);
 				}
 			});
 			

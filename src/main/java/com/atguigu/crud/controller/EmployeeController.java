@@ -125,11 +125,14 @@ public class EmployeeController {
 		return Msg.success().add("emp", employee);
 	}
 	
-	
+	//我们要能支持直接发送put之类的请求，还要封装请求踢中的数据
+	//配置上HttpPutFormContentFilter
+	//它的作用，将请求体重的数据解析包装成一个map，request被重新包装，request.getParameter()被重写，就会从自己封装的map中取数据
 	//保存更新的员工数据
 	@RequestMapping(value="/empsave/{empId}",method=RequestMethod.PUT)
 	@ResponseBody
 	public Msg saveEmp(Employee employee) {
+		System.out.println("员工信息===="+employee.getEmpId());
 		employeeService.updateEmp(employee);
 		return Msg.success();
 	}
