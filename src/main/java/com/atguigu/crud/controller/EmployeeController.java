@@ -2,11 +2,20 @@ package com.atguigu.crud.controller;
 
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.model;
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
+import javax.servlet.http.HttpServletRequest;
+import javax.validation.Valid;
+
+import org.mybatis.generator.codegen.ibatis2.dao.templates.GenericCIDAOTemplate;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.validation.BindingResult;
+import org.springframework.validation.FieldError;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -26,11 +35,32 @@ public class EmployeeController {
 	
 	
 	//保存员工信息
+	/**
+	 * 
+	 * 员工保存
+	 * 1 支持JSR303校验
+	 * 2 导入hibernate-validator
+	 *
+	 * @param employee
+	 * @return
+	 */
 	@RequestMapping(value="/emp",method=RequestMethod.POST)
 	@ResponseBody
-	public Msg saveEmp(Employee employee) {
-		employeeService.saveEmp(employee);
-		return Msg.success();
+	public Msg saveEmp(@Valid Employee employee,BindingResult result) {
+		if(result.hasErrors()) {
+			//校验失败，应该返回失败，在模态框中显示校验失败的信息
+			Map<String, Object> map=new HashMap<String, Object>();
+			List<FieldError> errors = result.getFieldErrors();
+			for(FieldError fieldError:errors) {
+				System.out.println("错误的字段名"+fieldError.getField());
+				System.out.println("错误的信息"+fieldError.getDefaultMessage());
+				map.put(fieldError.getField(),fieldError.getDefaultMessage());
+			}
+			return Msg.fail().add("errorFields",map);
+		}else {
+			employeeService.saveEmp(employee);
+			return Msg.success();
+		}
 	}
 	
 	
@@ -84,6 +114,28 @@ public class EmployeeController {
 			return Msg.fail().add("va_msg","用户名不可用");
 		}
 	}
+	
+	
+	
+	//编辑，查询员工信息
+	@RequestMapping(value="/emp/{id}",method=RequestMethod.GET)
+	@ResponseBody
+	public Msg getEmp(@PathVariable("id")Integer id) {
+		Employee employee = employeeService.getEmp(id);
+		return Msg.success().add("emp", employee);
+	}
+	
+	
+	//保存更新的员工数据
+	@RequestMapping(value="/empsave/{empId}",method=RequestMethod.PUT)
+	@ResponseBody
+	public Msg saveEmp(Employee employee) {
+		employeeService.updateEmp(employee);
+		return Msg.success();
+	}
+	
+	
+	
 	
 	
 	
