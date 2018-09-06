@@ -148,7 +148,7 @@ public class EmployeeController {
 	public Msg deleteEmpById(@PathVariable("id") String ids) {
 		//批量删除
 		if(ids.contains("-")) {
-			List<Integer> del_ids = new ArrayList<>();
+			List<Integer> del_ids = new ArrayList<Integer>();
 			String[] str_ids = ids.split("-");
 			//组装id的集合
 			for(String string:str_ids) {
