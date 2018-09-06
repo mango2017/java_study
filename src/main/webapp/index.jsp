@@ -271,6 +271,7 @@
 				}
 			});
 		}
+		
 
 		function build_emps_table(result) {
 			//清空table表格
