@@ -150,6 +150,7 @@ public class EmployeeController {
 		if(ids.contains("-")) {
 			List<Integer> del_ids = new ArrayList<Integer>();
 			String[] str_ids = ids.split("-");
+			
 			//组装id的集合
 			for(String string:str_ids) {
 				del_ids.add(Integer.parseInt(string));
