@@ -2,6 +2,7 @@ package com.atguigu.crud.controller;
 
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.model;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -134,6 +135,31 @@ public class EmployeeController {
 	public Msg saveEmp(Employee employee) {
 		System.out.println("员工信息===="+employee.getEmpId());
 		employeeService.updateEmp(employee);
+		return Msg.success();
+	}
+	
+	
+	//删除一个员工
+	//单个批量二合一方法
+	//批量删除1-2-3
+	//单个删除1
+	@ResponseBody
+	@RequestMapping(value="/emp/{id}",method=RequestMethod.DELETE)
+	public Msg deleteEmpById(@PathVariable("id") String ids) {
+		//批量删除
+		if(ids.contains("-")) {
+			List<Integer> del_ids = new ArrayList<>();
+			String[] str_ids = ids.split("-");
+			//组装id的集合
+			for(String string:str_ids) {
+				del_ids.add(Integer.parseInt(string));
+			}
+			employeeService.deleteBatch(del_ids);
+		}else { //单个删除
+			Integer id = Integer.parseInt(ids);
+			employeeService.deleteEmp(id);
+		}
+		
 		return Msg.success();
 	}
 	
