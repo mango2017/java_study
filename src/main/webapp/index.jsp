@@ -29,6 +29,7 @@
 			<div class="col-md-4 col-md-offset-8">
 				<button type="button" class="btn btn-primary" id="emp_add_modal_btn">新增</button>
 				<button type="button" class="btn btn-danger" id="emp_delete_all">删除</button>
+				<button type="button" class="btn btn-success" id="open_excel">打开工作簿</button>
 			</div>
 		</div>
 
@@ -631,6 +632,17 @@
 						}
 					});
 			 } 
+		});
+		
+		//打开现有工作簿
+		$("#open_excel").click(function(){
+			 $.ajax({
+					url : "${APP_PATH}/excel/",
+					type : "GET",
+					success : function(result) {
+						alert(result);
+					}
+				});
 		});
 		
 	</script>
