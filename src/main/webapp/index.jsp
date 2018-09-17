@@ -32,6 +32,11 @@
 				<button type="button" class="btn btn-success" id="open_excel">打开工作簿</button>
 			</div>
 		</div>
+		
+		<form name="dateupload" method="post" enctype="multipart/form-data" action="${APP_PATH}/excel" >
+        	<input type="file" name="file"  >
+        	<input type="submit" value="上传" />
+		</form>
 
 
 		<!-- 员工添加模态框 -->

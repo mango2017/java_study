@@ -21,6 +21,10 @@
     <!-- 两个标准配置 -->
     <!-- 将springmvc 不能处理的请求交给tomcat-->
     <mvc:default-servlet-handler/>
+    <!-- 文件上传 是写这里吗？？？ -->
+    <bean id="multipartResolver" class="org.springframework.web.multipart.commons.CommonsMultipartResolver">
+        <property name="defaultEncoding" value="UTF-8"></property>
+    </bean>
     
     <!-- 能支持springmvc更高级的一些功能，JSR303校验，快捷的ajax...映射动态请求  -->
 	<mvc:annotation-driven />

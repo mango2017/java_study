@@ -1,12 +1,14 @@
 package com.atguigu.crud.bean;
 
+import java.util.Date;
+
 public class Project {
 	
 	private String firstPoint;
 	private String secondPoint;
 	private String threePoint;
-	private String startTime;
-	private String endTime;
+	private Date startTime;
+	private Date endTime;
 	
 	
 	public String getFirstPoint() {
@@ -27,18 +29,22 @@ public class Project {
 	public void setThreePoint(String threePoint) {
 		this.threePoint = threePoint;
 	}
-	public String getStartTime() {
+	public Date getStartTime() {
 		return startTime;
 	}
-	public void setStartTime(String startTime) {
+	public void setStartTime(Date startTime) {
 		this.startTime = startTime;
 	}
-	public String getEndTime() {
+	public Date getEndTime() {
 		return endTime;
 	}
-	public void setEndTime(String endTime) {
+	public void setEndTime(Date endTime) {
 		this.endTime = endTime;
 	}
+	
+	
+	
+	
 	
 	
 	

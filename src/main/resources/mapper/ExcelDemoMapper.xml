@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.atguigu.crud.dao.ExcelDemoMapper">
+  <resultMap id="BaseResultMap" type="com.atguigu.crud.bean.Project">
+    <result column="first_point" jdbcType="VARCHAR" property="firstPoint" />
+    <result column="second_point" jdbcType="VARCHAR" property="secondPoint" />
+    <result column="three_point" jdbcType="VARCHAR" property="threePoint" />
+  <result column="start_time" jdbcType="DATE" property="startTime" />
+    <result column="end_time" jdbcType="DATE" property="endTime" />
+  </resultMap>
+  <insert id="insertProject" parameterType="com.atguigu.crud.bean.Project">
+    insert into tbl_project
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="firstPoint != null">
+        first_point,
+      </if>
+      <if test="secondPoint != null">
+        second_point,
+      </if>
+      <if test="threePoint != null">
+        three_point,
+      </if>
+      
+      <if test="startTime != null">
+        start_time,
+      </if>
+      <if test="endTime != null">
+        end_time,
+      </if>
+      
+      
+     
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="firstPoint != null">
+        #{firstPoint,jdbcType=VARCHAR},
+      </if>
+      <if test="secondPoint != null">
+        #{secondPoint,jdbcType=VARCHAR},
+      </if>
+      <if test="threePoint != null">
+        #{threePoint,jdbcType=VARCHAR},
+      </if> 
+      
+      <if test="startTime != null">
+        #{startTime,jdbcType=DATE},
+      </if>
+      <if test="endTime != null">
+        #{endTime,jdbcType=DATE},
+      </if> 
+      
+      
+     
+     
+    </trim>
+  </insert>
+</mapper>
