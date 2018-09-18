@@ -1,0 +1,75 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.atguigu.crud.dao.ExcelTestMapper">
+	<resultMap id="BaseResultMap"
+		type="com.atguigu.crud.bean.Projects">
+		<id column="id" jdbcType="INTEGER" property="id" />
+		<result column="project_name" jdbcType="VARCHAR"
+			property="projectName" />
+		<result column="parent_id" jdbcType="INTEGER"
+			property="parentId" />
+		<result column="level" jdbcType="INTEGER" property="level" />
+		<result column="start_time" jdbcType="DATE"
+			property="startTime" />
+		<result column="end_time" jdbcType="DATE" property="endTime" />
+	</resultMap>
+
+
+
+	 <!-- <insert id="insertTest" useGeneratedKeys="true" keyProperty="id" 
+		parameterType="com.atguigu.crud.bean.Projects">
+		insert into tbl_projects(project_name,parent_id,level,start_time,end_time)
+		values
+		(#{projectName,jdbcType=VARCHAR},#{parentId,jdbcType=INTEGER},#{level,jdbcType=INTEGER},#{startTime,jdbcType=DATE},#{endTime,jdbcType=DATE})
+	</insert>
+ -->
+ 	<!-- 更新 -->
+	<update id="updateTime" parameterType="com.atguigu.crud.bean.Projects">
+    update tbl_projects
+    set end_time = #{endTime,jdbcType=DATE} 
+      where id = #{id,jdbcType=INTEGER}
+  </update>
+
+
+	<!-- 插入 -->
+	 <insert id="insertProjects"  useGeneratedKeys="true" keyProperty="id" 
+		parameterType="com.atguigu.crud.bean.Projects">
+	
+		insert into tbl_projects
+		<trim prefix="(" suffix=")" suffixOverrides=",">
+			<if test="projectName != null">
+				project_name,
+			</if>
+			<if test="parentId != null">
+				parent_id,
+			</if>
+			<if test="level != null">
+				level,
+			</if>
+			<if test="startTime != null">
+				start_time,
+			</if>
+			<if test="endTime != null">
+				end_time,
+			</if>
+		</trim>
+		<trim prefix="values (" suffix=")" suffixOverrides=",">
+			<if test="projectName != null">
+				#{projectName,jdbcType=VARCHAR},
+			</if>
+			<if test="parentId != null">
+				#{parentId,jdbcType=INTEGER},
+			</if>
+			<if test="level != null">
+				#{level,jdbcType=INTEGER},
+			</if>
+			<if test="startTime != null">
+				#{startTime,jdbcType=DATE},
+			</if>
+			<if test="endTime != null">
+				#{endTime,jdbcType=DATE},
+			</if>
+		</trim>
+		
+	</insert> 
+</mapper>

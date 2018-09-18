@@ -33,7 +33,7 @@
 			</div>
 		</div>
 		
-		<form name="dateupload" method="post" enctype="multipart/form-data" action="${APP_PATH}/excel" >
+		<form name="dateupload" method="post" enctype="multipart/form-data" action="${APP_PATH}/test" >
         	<input type="file" name="file"  >
         	<input type="submit" value="上传" />
 		</form>
